@@ -52,7 +52,7 @@ const Main = () => {
     generationRef.current = numGenerations
 
     const isStableRef = useRef(isStable)
-    isStableRef.current = previousGrid == grid
+    isStableRef.current = previousGrid === grid
 
     const singleStepRef = useRef(singleStep)
     singleStepRef.current = singleStep
@@ -103,7 +103,7 @@ const Main = () => {
         }
         else if (nthTermRef.current !== 0 && !isLoopingRef.current) {
             setIsLooping(true)
-            for (let i = 0; i < nthTerm; i++) {
+            for (let i = 0; i < nthTermRef.current; i++) {
                 runSimulation()
             }
             setIsLooping(false)
@@ -111,7 +111,7 @@ const Main = () => {
         else if (!isLoopingRef.current) {
             setTimeout(runSimulation, speeds[speedRef.current]) //relies on reference of speed, so changes state can be read by this function
         }
-
+        // eslint-disable-next-line
     }, [])
     return (
         <>
