@@ -1,11 +1,36 @@
 import React from 'react'
-import Box from "./Box"
+import produce from "immer"
 
-const Grid = () => {
+const Grid = ({
+    numCols, numRows, running, setGrid, grid
+}) => {
     return (
-        <div classname="grid-container">
-            <h3>Grid goes here</h3>
-            <Box />
+        <div className="grid-container">
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: `repeat(${numCols}, 20px)`,
+                gridTemplateRows: `repeat(${numRows}, 20px)`,
+                justifyContent: 'center',
+            }}>
+                {grid.map((rows, i) =>
+                    rows.map((col, k) =>
+                        <div
+                            key={`${i}-${k}`}
+                            onClick={() => {
+                                const newGrid = produce(grid, gridCopy => {
+                                    gridCopy[i][k] = !running ? (grid[i][k] ? 0 : 1) : grid[i][k] // if not currently running simulation, clicking squares will toggle alive or dead
+                                })
+                                setGrid(newGrid)
+                            }}
+                            style={{
+                                width: 20,
+                                height: 20,
+                                backgroundColor: grid[i][k] ? "green" : "pink", //green if alive
+                                border: "solid 1px black"
+                            }}>
+                        </div>))
+                }
+            </div>
         </div>
 
     )
