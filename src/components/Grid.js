@@ -2,7 +2,7 @@ import React from 'react'
 import produce from "immer"
 
 const Grid = ({
-    numCols, numRows, running, setGrid, grid
+    numCols, numRows, running, setGrid, grid, aliveColor, deadColor, borderColor
 }) => {
     return (
         <div className="grid-container">
@@ -15,7 +15,7 @@ const Grid = ({
                 {grid.map((rows, i) =>
                     rows.map((col, k) =>
                         <div
-                            key={`${i}-${k}`}
+                            key={`[${i}][${k}]`}
                             onClick={() => {
                                 const newGrid = produce(grid, gridCopy => {
                                     gridCopy[i][k] = !running ? (grid[i][k] ? 0 : 1) : grid[i][k] // if not currently running simulation, clicking squares will toggle alive or dead
@@ -25,8 +25,8 @@ const Grid = ({
                             style={{
                                 width: 20,
                                 height: 20,
-                                backgroundColor: grid[i][k] ? "green" : "pink", //green if alive
-                                border: "solid 1px black"
+                                backgroundColor: grid[i][k] ? aliveColor : deadColor, //green if alive
+                                border: `solid 1px ${borderColor}`
                             }}>
                         </div>))
                 }

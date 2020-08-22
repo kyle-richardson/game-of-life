@@ -18,12 +18,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 p {
   padding: 0;
-  margin: 0;
+  margin: 10px 0;
+}
+
+ul >* {
+  margin: 10px 0;
 }
 
 .App {
   margin: 0 auto;
   text-align: center;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px;
+}
+.about-container {
+  
+}
+
+.rules-container {
+  text-align: left
 }
 
 .header-container {
