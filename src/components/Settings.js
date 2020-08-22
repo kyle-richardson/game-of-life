@@ -1,4 +1,5 @@
 import React from 'react'
+import produce from "immer"
 
 const Settings = ({
     setRunning,
@@ -22,7 +23,8 @@ const Settings = ({
     setAliveColor,
     setDeadColor,
     setBorderColor,
-    originalGrid
+    originalGrid,
+    setOriginalGrid
 
 }) => {
     return (
@@ -51,6 +53,7 @@ const Settings = ({
                 setGrid(rows)
                 setRunning(false)
                 setGeneration(0)
+                setOriginalGrid(rows)
             }}>
                 Random
             </button>
@@ -67,6 +70,19 @@ const Settings = ({
                 setRunning(false)
             }}>Original</button>
             <button onClick={() => {
+                const newGrid = produce(grid, gridCopy => {
+                    for (let i = 0; i < Number(numRows); i++) {
+                        for (let k = 0; k < Number(numCols); k++) {
+                            gridCopy[i][k] = grid[i][k] === 1 ? 0 : 1
+                        }
+                    }
+                })
+                setGrid(newGrid)
+                setRunning(false)
+                setGeneration(0)
+                setOriginalGrid(newGrid)
+            }}>Invert</button>
+            <button onClick={() => {
                 const rows = []
                 for (let i = 0; i < Number(numRows); i++) {
                     rows.push(Array.from(Array(Number(numCols)), (c, k) => k === 0 || k === Number(numCols) - 1 || i === 0 || i === Number(numRows) - 1 ? 1 : 0))
@@ -74,6 +90,7 @@ const Settings = ({
                 setGrid(rows)
                 setRunning(false)
                 setGeneration(0)
+                setOriginalGrid(rows)
             }}>Preset: Square</button>
             <button onClick={() => {
                 const rows = []
@@ -83,6 +100,7 @@ const Settings = ({
                 setGrid(rows)
                 setRunning(false)
                 setGeneration(0)
+                setOriginalGrid(rows)
             }}>Preset: X</button>
             <button onClick={() => {
                 const rows = []
@@ -92,6 +110,7 @@ const Settings = ({
                 setGrid(rows)
                 setRunning(false)
                 setGeneration(0)
+                setOriginalGrid(rows)
             }}>Preset: line</button>
             <button onClick={() => {
                 const rows = []
@@ -101,6 +120,7 @@ const Settings = ({
                 setGrid(rows)
                 setRunning(false)
                 setGeneration(0)
+                setOriginalGrid(rows)
             }}>Preset: cross</button>
             <select
                 name="Speed"
@@ -109,7 +129,8 @@ const Settings = ({
                 <option value="slow">Slow</option>
                 <option value="medium">Medium</option>
                 <option value="fast">Fast</option>
-                <option value="super_fast">Super Fast</option>
+                <option value="faster">Faster</option>
+                <option value="fastest">Fastest</option>
             </select>
             <select //todo, not working to change size of grid currently
                 name="Size"

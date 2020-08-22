@@ -21,7 +21,8 @@ const speeds = {
     'slow': 1000,
     'medium': 500,
     'fast': 250,
-    'super_fast': 50
+    'faster': 50,
+    'fastest': 10
 }
 
 
@@ -41,9 +42,9 @@ const Main = () => {
     const [previousGrid, setPreviousGrid] = useState()
     const [running, setRunning] = useState(false)
     const [currSpeed, setCurrSpeed] = useState("medium")
+    // eslint-disable-next-line
     const [isStable, setIsStable] = useState(false)
     const [singleStep, setSingleStep] = useState(false)
-    const [isNth, setIsNth] = useState(false)
     const [aliveColor, setAliveColor] = useState("green")
     const [deadColor, setDeadColor] = useState("pink")
     const [borderColor, setBorderColor] = useState("black")
@@ -97,6 +98,7 @@ const Main = () => {
         })
     }
 
+    /* run Simulation to calculate next generation cells.  parameter is used for recursive call to find nth term, but otherwise is not used*/
 
     const runSimulation = useCallback((n = -1) => {
 
@@ -145,7 +147,6 @@ const Main = () => {
                     numCols={numCols}
                     currSpeed={currSpeed}
                     setSingleStep={setSingleStep}
-                    setGeneration={setGeneration}
                     aliveColor={aliveColor}
                     deadColor={deadColor}
                     borderColor={borderColor}
@@ -153,6 +154,7 @@ const Main = () => {
                     setDeadColor={setDeadColor}
                     setBorderColor={setBorderColor}
                     originalGrid={originalGrid}
+                    setOriginalGrid={setOriginalGrid}
 
                 />
                 {/* start of grid */}
