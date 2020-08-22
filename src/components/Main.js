@@ -1,7 +1,11 @@
 import React, { useState, useCallback, useRef } from 'react'
+import produce from 'immer'
+
 import Grid from "./Grid"
 import Settings from "./Settings"
-import produce from 'immer'
+import About from "./About"
+import Rules from "./Rules"
+
 
 const gridNeighbors = [
     [-1, -1],
@@ -24,11 +28,11 @@ const speeds = {
 const Main = () => {
     const [numRows, setNumRows] = useState(25)
     const [numCols, setNumCols] = useState(25)
-    const [numGenerations, setNumGenerations] = useState(0)
+    const [generation, setGeneration] = useState(0)
     const createEmptyGrid = () => {
         const rows = []
-        for (let i = 0; i < numRows; i++) {
-            rows.push(Array.from(Array(numCols), () => 0)) // 0 means dead, 1 means alive. setting all to 0 is clearing/making empty grid
+        for (let i = 0; i < Number(numRows); i++) {
+            rows.push(Array.from(Array(Number(numCols)), () => 0)) // 0 means dead, 1 means alive. setting all to 0 is clearing/making empty grid
         }
         return rows
     }
@@ -39,17 +43,19 @@ const Main = () => {
     const [currSpeed, setCurrSpeed] = useState("medium")
     const [isStable, setIsStable] = useState(false)
     const [singleStep, setSingleStep] = useState(false)
-    const [isLooping, setIsLooping] = useState(false)
-    const [nthTerm, setNthTerm] = useState(0)
+    const [isNth, setIsNth] = useState(false)
+    const [aliveColor, setAliveColor] = useState("green")
+    const [deadColor, setDeadColor] = useState("pink")
+    const [borderColor, setBorderColor] = useState("black")
 
-    const runningRef = useRef(running); //able to use updated running state within callback function below
+    const runningRef = useRef(running);
     runningRef.current = running
 
     const speedRef = useRef(currSpeed)
     speedRef.current = currSpeed
 
-    const generationRef = useRef(numGenerations)
-    generationRef.current = numGenerations
+    const generationRef = useRef(generation)
+    generationRef.current = generation
 
     const isStableRef = useRef(isStable)
     isStableRef.current = previousGrid === grid
@@ -57,91 +63,113 @@ const Main = () => {
     const singleStepRef = useRef(singleStep)
     singleStepRef.current = singleStep
 
-    const nthTermRef = useRef(nthTerm)
-    nthTermRef.current = nthTerm
+    const gridRef = useRef(grid)
+    gridRef.current = grid
 
-    const isLoopingRef = useRef(isLooping)
-    isLoopingRef.current = isLooping
+    const rowsRef = useRef(numRows)
+    rowsRef.current = numRows
 
-    const runSimulation = useCallback(() => { //useCallback so this function is only created once, not on every re-render
-        if (!runningRef.current || isStableRef.current) {
+    const colsRef = useRef(numCols)
+    colsRef.current = numCols
+
+
+    const makeNewGrid = (currGrid) => {
+        return produce(currGrid, gridCopy => {
+            for (let i = 0; i < Number(rowsRef.current); i++) {
+                for (let k = 0; k < Number(colsRef.current); k++) {
+                    let neighbors = 0;
+                    gridNeighbors.forEach(([x, y]) => { //generating list of neighbors for each cell
+                        const newI = i + x
+                        const newK = k + y;
+                        if (newI >= 0 && newI < Number(rowsRef.current) && newK >= 0 && newK < Number(colsRef.current)) { //off grid edges are considered dead
+                            neighbors += currGrid[newI][newK]
+                        }
+                    })
+                    if (neighbors < 2 || neighbors > 3) { //rule: if num neighbors < 2 or > 3, that cell dies (changes from 1 to 0)
+                        gridCopy[i][k] = 0
+                    }
+                    else if (currGrid[i][k] === 0 && neighbors === 3) { // rules: if cell is dead but has 3 neighbors, cell becomes alive
+                        gridCopy[i][k] = 1
+                    }
+
+                }
+            }
+        })
+    }
+
+
+    const runSimulation = useCallback((n = -1) => {
+
+        if (!runningRef.current || isStableRef.current || n === 0) {
+            setRunning(false)
             return
         }
-
         if (generationRef.current === 0) {
-            setOriginalGrid(grid)
+            setOriginalGrid(gridRef.current)
         }
-        setPreviousGrid(grid)
-        setNumGenerations(generationRef.current + 1)
-        const newGrid = (currGrid) => {
-            return produce(currGrid, gridCopy => {
-                for (let i = 0; i < numRows; i++) {
-                    for (let k = 0; k < numCols; k++) {
-                        let neighbors = 0;
-                        gridNeighbors.forEach(([x, y]) => { //generating list of neighbors for each cell
-                            const newI = i + x
-                            const newK = k + y;
-                            if (newI >= 0 && newI < numRows && newK >= 0 && newK < numCols) { //off grid edges are considered dead
-                                neighbors += currGrid[newI][newK]
-                            }
-                        })
-                        if (neighbors < 2 || neighbors > 3) { //rule: if num neighbors < 2 or > 3, that cell dies (changes from 1 to 0)
-                            gridCopy[i][k] = 0
-                        }
-                        else if (currGrid[i][k] === 0 && neighbors === 3) { // rules: if cell is dead but has 3 neighbors, cell becomes alive
-                            gridCopy[i][k] = 1
-                        }
-
-                    }
-                }
-            })
-        }
+        setPreviousGrid(gridRef.current)
+        setGeneration(generationRef.current + 1)
+        const newGrid = makeNewGrid(gridRef.current)
         setGrid(newGrid)
         if (singleStepRef.current) {
             setSingleStep(false)
             setRunning(false)
         }
-        else if (nthTermRef.current !== 0 && !isLoopingRef.current) {
-            setIsLooping(true)
-            for (let i = 0; i < nthTermRef.current; i++) {
-                runSimulation()
-            }
-            setIsLooping(false)
+        else if (n >= 1) {
+            runSimulation(n - 1)
+            setRunning(false)
         }
-        else if (!isLoopingRef.current) {
-            setTimeout(runSimulation, speeds[speedRef.current]) //relies on reference of speed, so changes state can be read by this function
+        else if (n < 0) {
+            setTimeout(runSimulation, speeds[speedRef.current])
         }
         // eslint-disable-next-line
     }, [])
     return (
-        <>
-            {/* start of buttons and above grid */}
-            <Settings
-                running={runningRef.current}
-                setRunning={setRunning}
-                setGrid={setGrid}
-                setNumGenerations={setNumGenerations}
-                setCurrSpeed={setCurrSpeed}
-                setNumCols={setNumCols}
-                setNumRows={setNumRows}
-                generation={generationRef.current}
-                createEmptyGrid={createEmptyGrid}
-                runSimulation={runSimulation}
-                numRows={numRows}
-                numCols={numCols}
-                currSpeed={currSpeed}
-                setSingleStep={setSingleStep}
-                setNthTerm={setNthTerm}
-            />
-            {/* start of grid */}
-            <Grid
-                numCols={numCols}
-                numRows={numRows}
-                running={runningRef.current}
-                setGrid={setGrid}
-                grid={grid}
-            />
-        </>
+        <div className="main-container">
+            <About />
+            <div>
+                {/* start of settings above grid */}
+                <Settings
+                    running={running}
+                    setRunning={setRunning}
+                    grid={grid}
+                    setGrid={setGrid}
+                    setGeneration={setGeneration}
+                    setCurrSpeed={setCurrSpeed}
+                    setNumCols={setNumCols}
+                    setNumRows={setNumRows}
+                    generation={generation}
+                    createEmptyGrid={createEmptyGrid}
+                    runSimulation={runSimulation}
+                    numRows={numRows}
+                    numCols={numCols}
+                    currSpeed={currSpeed}
+                    setSingleStep={setSingleStep}
+                    setGeneration={setGeneration}
+                    aliveColor={aliveColor}
+                    deadColor={deadColor}
+                    borderColor={borderColor}
+                    setAliveColor={setAliveColor}
+                    setDeadColor={setDeadColor}
+                    setBorderColor={setBorderColor}
+                    originalGrid={originalGrid}
+
+                />
+                {/* start of grid */}
+                <Grid
+                    numCols={numCols}
+                    numRows={numRows}
+                    running={running}
+                    setGrid={setGrid}
+                    grid={grid}
+                    aliveColor={aliveColor}
+                    deadColor={deadColor}
+                    borderColor={borderColor}
+                />
+            </div>
+            <Rules />
+
+        </div>
 
     )
 }

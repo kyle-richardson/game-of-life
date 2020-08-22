@@ -11,13 +11,13 @@ Implement at least 3 of the following features:
 * Create a few sample cell configurations that users can load and run
 [x] Add an option that creates a random cell configuration that users can
   run
-* Add additional cell properties, like color or size, and incorporate
+[x] Add additional cell properties, like color or size, and incorporate
   them into your visualization
 [x] Allow users to specify the speed of the simulation
 [x] Provide functionality to manually step through the simulation one
   generation at a time, as opposed to animating automatically
-* Allow users to change the dimension of the grid being displayed
-* Given a specific generation, calculate the configuration of cells at
+[x] Allow users to change the dimension of the grid being displayed
+[x] Given a specific generation, calculate the configuration of cells at
   that point in time, and jump to that state, bypassing animation (i.e.
   skip ahead _n_ generations).
 * If you have an idea for a custom feature on this list, run it by your
@@ -25,13 +25,13 @@ Implement at least 3 of the following features:
 
 #### About
 
-* On the main entry point of the application, include a separate section
+[x] On the main entry point of the application, include a separate section
   or link to another page or popup that describes the two main rules
   (birth & death) of Conway’s Game of Life
 
 ## Stretch Goals
 
-* Implement 2+ additional custom features, above
+[x] Implement 2+ additional custom features, above
 [x] Deploy your app to a hosting service or, for iOS, to TestFlight (or
   the App Store!). Web devs can see [more deployment info
   here](resources/web/deployment).
