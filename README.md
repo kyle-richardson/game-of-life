@@ -8,7 +8,7 @@ Deployed using Netlify: [Game of Life](game-of-life-kyle.netlify.app)
 
 Implement at least 3 of the following features:
 
-* Create a few sample cell configurations that users can load and run
+[x] Create a few sample cell configurations that users can load and run
 [x] Add an option that creates a random cell configuration that users can
   run
 [x] Add additional cell properties, like color or size, and incorporate

@@ -3,8 +3,6 @@ import produce from 'immer'
 
 import Grid from "./Grid"
 import Settings from "./Settings"
-import About from "./About"
-import Rules from "./Rules"
 
 
 const gridNeighbors = [
@@ -21,7 +19,8 @@ const speeds = {
     'slow': 1000,
     'medium': 500,
     'fast': 250,
-    'super_fast': 50
+    'faster': 50,
+    'fastest': 10
 }
 
 
@@ -41,9 +40,9 @@ const Main = () => {
     const [previousGrid, setPreviousGrid] = useState()
     const [running, setRunning] = useState(false)
     const [currSpeed, setCurrSpeed] = useState("medium")
+    // eslint-disable-next-line
     const [isStable, setIsStable] = useState(false)
     const [singleStep, setSingleStep] = useState(false)
-    const [isNth, setIsNth] = useState(false)
     const [aliveColor, setAliveColor] = useState("green")
     const [deadColor, setDeadColor] = useState("pink")
     const [borderColor, setBorderColor] = useState("black")
@@ -97,6 +96,7 @@ const Main = () => {
         })
     }
 
+    /* run Simulation to calculate next generation cells.  parameter is used for recursive call to find nth term, but otherwise is not used*/
 
     const runSimulation = useCallback((n = -1) => {
 
@@ -126,49 +126,45 @@ const Main = () => {
     }, [])
     return (
         <div className="main-container">
-            <About />
-            <div>
-                {/* start of settings above grid */}
-                <Settings
-                    running={running}
-                    setRunning={setRunning}
-                    grid={grid}
-                    setGrid={setGrid}
-                    setGeneration={setGeneration}
-                    setCurrSpeed={setCurrSpeed}
-                    setNumCols={setNumCols}
-                    setNumRows={setNumRows}
-                    generation={generation}
-                    createEmptyGrid={createEmptyGrid}
-                    runSimulation={runSimulation}
-                    numRows={numRows}
-                    numCols={numCols}
-                    currSpeed={currSpeed}
-                    setSingleStep={setSingleStep}
-                    setGeneration={setGeneration}
-                    aliveColor={aliveColor}
-                    deadColor={deadColor}
-                    borderColor={borderColor}
-                    setAliveColor={setAliveColor}
-                    setDeadColor={setDeadColor}
-                    setBorderColor={setBorderColor}
-                    originalGrid={originalGrid}
+            {/* start of grid */}
+            <Grid
+                numCols={numCols}
+                numRows={numRows}
+                running={running}
+                setGrid={setGrid}
+                grid={grid}
+                aliveColor={aliveColor}
+                deadColor={deadColor}
+                borderColor={borderColor}
+            />
 
-                />
-                {/* start of grid */}
-                <Grid
-                    numCols={numCols}
-                    numRows={numRows}
-                    running={running}
-                    setGrid={setGrid}
-                    grid={grid}
-                    aliveColor={aliveColor}
-                    deadColor={deadColor}
-                    borderColor={borderColor}
-                />
-            </div>
-            <Rules />
+            {/* start of settings for grid */}
+            <Settings
+                running={running}
+                setRunning={setRunning}
+                grid={grid}
+                setGrid={setGrid}
+                setGeneration={setGeneration}
+                setCurrSpeed={setCurrSpeed}
+                setNumCols={setNumCols}
+                setNumRows={setNumRows}
+                generation={generation}
+                createEmptyGrid={createEmptyGrid}
+                runSimulation={runSimulation}
+                numRows={numRows}
+                numCols={numCols}
+                currSpeed={currSpeed}
+                setSingleStep={setSingleStep}
+                aliveColor={aliveColor}
+                deadColor={deadColor}
+                borderColor={borderColor}
+                setAliveColor={setAliveColor}
+                setDeadColor={setDeadColor}
+                setBorderColor={setBorderColor}
+                originalGrid={originalGrid}
+                setOriginalGrid={setOriginalGrid}
 
+            />
         </div>
 
     )

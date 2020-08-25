@@ -8,9 +8,11 @@ const Grid = ({
         <div className="grid-container">
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: `repeat(${numCols}, 20px)`,
-                gridTemplateRows: `repeat(${numRows}, 20px)`,
+                gridTemplateColumns: `repeat(${numCols}, ${500 / numCols}px)`,
+                gridTemplateRows: `repeat(${numRows}, ${500 / numCols}px)`,
                 justifyContent: 'center',
+                alignItems: 'center',
+                width: 500
             }}>
                 {grid.map((rows, i) =>
                     rows.map((col, k) =>
@@ -23,9 +25,9 @@ const Grid = ({
                                 setGrid(newGrid)
                             }}
                             style={{
-                                width: 20,
-                                height: 20,
-                                backgroundColor: grid[i][k] ? aliveColor : deadColor, //green if alive
+                                width: Math.floor(500 / numCols),
+                                height: Math.floor(500 / numRows),
+                                backgroundColor: grid[i][k] ? aliveColor : deadColor,
                                 border: `solid 1px ${borderColor}`
                             }}>
                         </div>))
