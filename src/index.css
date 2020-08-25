@@ -34,9 +34,12 @@ ul >* {
   display: flex;
   justify-content: space-evenly;
   margin: 10px;
+  align-items: center;
 }
-.about-container {
-  
+@media(max-width: 600px) {
+  .main-container {
+    flex-direction: column;
+  }
 }
 
 .rules-container {
@@ -50,8 +53,10 @@ ul >* {
 
 .selectors-container {
   margin-bottom: 10px;
-}
+  display: flex;
+  flex-direction: column;
 
+}
 .grid-container {
   text-align: center;
 }

@@ -11,6 +11,7 @@ const Grid = ({
                 gridTemplateColumns: `repeat(${numCols}, ${500 / numCols}px)`,
                 gridTemplateRows: `repeat(${numRows}, ${500 / numCols}px)`,
                 justifyContent: 'center',
+                alignItems: 'center',
                 width: 500
             }}>
                 {grid.map((rows, i) =>
