@@ -5,7 +5,7 @@ import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = (props) => {
     return (
-        <div className={props.isLoading ? "hide" : "footer-container"}>
+        <div className="footer-container">
             <p style={{ marginTop: "10px" }}>
                 Made with <FontAwesomeIcon icon={faHeart} color={"red"} /> by Kyle
                 Richardson

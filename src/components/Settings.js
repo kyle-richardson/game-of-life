@@ -34,6 +34,7 @@ const Settings = ({
     setOriginalGrid
 
 }) => {
+
     return (
         <div className="selectors-container">
             <Button
@@ -64,7 +65,9 @@ const Settings = ({
                 }>
                 Clear
             </Button>
-            <Button style={{ marginBottom: "10px" }}
+            <Button
+
+                style={{ marginBottom: "10px" }}
                 disableRipple
                 disableElevation
                 size="small"
@@ -82,7 +85,9 @@ const Settings = ({
                 }}>
                 Random
             </Button>
-            <Button style={{ marginBottom: "10px" }}
+            <Button
+
+                style={{ marginBottom: "10px" }}
                 disableRipple
                 disableElevation
                 size="small"
@@ -95,7 +100,9 @@ const Settings = ({
                 }}>
                 Step
             </Button>
-            <Button style={{ marginBottom: "10px" }}
+            <Button
+
+                style={{ marginBottom: "10px" }}
                 disableRipple
                 disableElevation
                 size="small"
@@ -107,7 +114,9 @@ const Settings = ({
                     setRunning(false)
                 }}>Original
             </Button>
-            <Button style={{ marginBottom: "10px" }}
+            <Button
+
+                style={{ marginBottom: "10px" }}
                 disableRipple
                 disableElevation
                 size="small"
@@ -127,7 +136,9 @@ const Settings = ({
                     setOriginalGrid(newGrid)
                 }}>Invert
             </Button>
-            <Button style={{ marginBottom: "10px" }}
+            <Button
+
+                style={{ marginBottom: "10px" }}
                 disableRipple
                 disableElevation
                 size="small"
@@ -144,7 +155,9 @@ const Settings = ({
                     setOriginalGrid(rows)
                 }}>Preset: Square
             </Button>
-            <Button style={{ marginBottom: "10px" }}
+            <Button
+
+                style={{ marginBottom: "10px" }}
                 disableRipple
                 disableElevation
                 size="small"
@@ -161,7 +174,9 @@ const Settings = ({
                     setOriginalGrid(rows)
                 }}>Preset: X
             </Button>
-            <Button style={{ marginBottom: "10px" }}
+            <Button
+
+                style={{ marginBottom: "10px" }}
                 disableRipple
                 disableElevation
                 size="small"
@@ -178,7 +193,9 @@ const Settings = ({
                     setOriginalGrid(rows)
                 }}>Preset: line
                 </Button>
-            <Button style={{ marginBottom: "10px" }}
+            <Button
+
+                style={{ marginBottom: "10px" }}
                 disableElevation
                 disableRipple
                 size="small"
@@ -195,7 +212,9 @@ const Settings = ({
                     setOriginalGrid(rows)
                 }}>Preset: cross
             </Button>
-            <FormControl style={{ marginBottom: "10px" }} size="small" variant="outlined">
+            <FormControl
+
+                style={{ marginBottom: "10px" }} size="small" variant="outlined">
                 <InputLabel>Speed</InputLabel>
                 <Select
                     labelId="speed-label"

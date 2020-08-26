@@ -30,6 +30,10 @@ ul >* {
   text-align: center;
 }
 
+a:visited {
+  color: rgb(139, 90, 139)
+}
+
 .main-container {
   display: flex;
   justify-content: space-evenly;
@@ -49,6 +53,9 @@ ul >* {
 .header-container {
   margin-top: 20px;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .selectors-container {
@@ -63,7 +70,7 @@ ul >* {
 
 .footer-container {
   border-top: 2px solid rgb(199, 199, 199);
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
   margin-bottom: 10px;
   margin-top: 10px;
 }
@@ -87,4 +94,9 @@ ul >* {
 
 .hide {
   display: none;
+}
+
+.dark {
+  color: white;
+  background: #282c34;
 }

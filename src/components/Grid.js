@@ -2,17 +2,24 @@ import React from 'react'
 import produce from "immer"
 
 const Grid = ({
-    numCols, numRows, running, setGrid, grid, aliveColor, deadColor, borderColor
+    numCols,
+    numRows,
+    running,
+    setGrid,
+    grid,
+    aliveColor,
+    deadColor,
+    borderColor
 }) => {
     return (
         <div className="grid-container">
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: `repeat(${numCols}, ${500 / numCols}px)`,
-                gridTemplateRows: `repeat(${numRows}, ${500 / numCols}px)`,
+                gridTemplateColumns: `repeat(${numCols}, ${600 / numCols}px)`,
+                gridTemplateRows: `repeat(${numRows}, ${600 / numCols}px)`,
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: 500
+                width: 600
             }}>
                 {grid.map((rows, i) =>
                     rows.map((col, k) =>
@@ -25,8 +32,8 @@ const Grid = ({
                                 setGrid(newGrid)
                             }}
                             style={{
-                                width: Math.floor(500 / numCols),
-                                height: Math.floor(500 / numRows),
+                                width: Math.floor(600 / numCols),
+                                height: Math.floor(600 / numRows),
                                 backgroundColor: grid[i][k] ? aliveColor : deadColor,
                                 border: `solid 1px ${borderColor}`
                             }}>
