@@ -8,7 +8,7 @@ const Header = ({ toggleDarkMode }) => {
     return (
         <div className="header-container">
             <h1 style={{ marginBottom: "10px" }}>Conway's Game of Life</h1>
-            <div style={{ position: "absolute", top: "4%", right: "5%" }} onClick={toggleDarkMode}>
+            <div style={{ position: "absolute", top: "4%", right: "5%", cursor: "pointer" }} onClick={toggleDarkMode}>
                 <Brightness4Icon />
             </div>
 

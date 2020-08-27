@@ -11,15 +11,16 @@ const Grid = ({
     deadColor,
     borderColor
 }) => {
+    const gridWidth = 600
     return (
         <div className="grid-container">
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: `repeat(${numCols}, ${600 / numCols}px)`,
-                gridTemplateRows: `repeat(${numRows}, ${600 / numCols}px)`,
+                gridTemplateColumns: `repeat(${numCols}, ${gridWidth / numCols}px)`,
+                gridTemplateRows: `repeat(${numRows}, ${gridWidth / numRows}px)`,
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: 600
+                width: gridWidth
             }}>
                 {grid.map((rows, i) =>
                     rows.map((col, k) =>
@@ -32,8 +33,8 @@ const Grid = ({
                                 setGrid(newGrid)
                             }}
                             style={{
-                                width: Math.floor(600 / numCols),
-                                height: Math.floor(600 / numRows),
+                                width: Math.floor(gridWidth / numCols),
+                                height: Math.floor(gridWidth / numRows),
                                 backgroundColor: grid[i][k] ? aliveColor : deadColor,
                                 border: `solid 1px ${borderColor}`
                             }}>

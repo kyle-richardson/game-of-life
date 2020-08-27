@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react'
 import produce from 'immer'
+import { useLocalStorage } from "../utils/useLocalStorage"
 
 import Grid from "./Grid"
 import Settings from "./Settings"
@@ -25,8 +26,8 @@ const speeds = {
 
 
 const Main = () => {
-    const [numRows, setNumRows] = useState(25)
-    const [numCols, setNumCols] = useState(25)
+    const [numRows, setNumRows] = useLocalStorage("numRows", 25)
+    const [numCols, setNumCols] = useLocalStorage("numCols", 25)
     const [generation, setGeneration] = useState(0)
     const createEmptyGrid = () => {
         const rows = []
@@ -43,9 +44,9 @@ const Main = () => {
     // eslint-disable-next-line
     const [isStable, setIsStable] = useState(false)
     const [singleStep, setSingleStep] = useState(false)
-    const [aliveColor, setAliveColor] = useState("green")
-    const [deadColor, setDeadColor] = useState("pink")
-    const [borderColor, setBorderColor] = useState("black")
+    const [aliveColor, setAliveColor] = useLocalStorage("aliveColor", "green")
+    const [deadColor, setDeadColor] = useLocalStorage("deadColor", "pink")
+    const [borderColor, setBorderColor] = useLocalStorage("borderColor", "black")
 
     const runningRef = useRef(running);
     runningRef.current = running
