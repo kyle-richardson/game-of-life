@@ -40,7 +40,7 @@ const Main = () => {
     const [originalGrid, setOriginalGrid] = useState(grid)
     const [previousGrid, setPreviousGrid] = useState()
     const [running, setRunning] = useState(false)
-    const [currSpeed, setCurrSpeed] = useState("medium")
+    const [currSpeed, setCurrSpeed] = useLocalStorage("currSpeed", "medium")
     // eslint-disable-next-line
     const [isStable, setIsStable] = useState(false)
     const [singleStep, setSingleStep] = useState(false)
