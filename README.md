@@ -2,44 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Conway's Game of life
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/81ce425d-6f8a-482f-aa8e-37563fbb4bd2/deploy-status)](https://app.netlify.com/sites/game-of-life-kyle/deploys)
+
 Deployed using Netlify: [Game of Life](game-of-life-kyle.netlify.app)
 
-### Custom Features
-
-Implement at least 3 of the following features:
-
-[x] Create a few sample cell configurations that users can load and run
-[x] Add an option that creates a random cell configuration that users can
-  run
-[x] Add additional cell properties, like color or size, and incorporate
-  them into your visualization
-[x] Allow users to specify the speed of the simulation
-[x] Provide functionality to manually step through the simulation one
-  generation at a time, as opposed to animating automatically
-[x] Allow users to change the dimension of the grid being displayed
-[x] Given a specific generation, calculate the configuration of cells at
-  that point in time, and jump to that state, bypassing animation (i.e.
-  skip ahead _n_ generations).
-* If you have an idea for a custom feature on this list, run it by your
-  TL or instructor
-
-#### About
-
-[x] On the main entry point of the application, include a separate section
-  or link to another page or popup that describes the two main rules
-  (birth & death) of Conway’s Game of Life
-
-## Stretch Goals
-
-[x] Implement 2+ additional custom features, above
-[x] Deploy your app to a hosting service or, for iOS, to TestFlight (or
-  the App Store!). Web devs can see [more deployment info
-  here](resources/web/deployment).
-* Write a how-to guide or blog post that walks readers through the
-  work you did to implement your project
-* Expand your simulation into the third dimension. Google `3D Conways
-  Life`. Google for how to do 3D stuff on your platform. Web users might
-  check out [3D-ThreeJS](https://github.com/LambdaSchool/3D-ThreeJS),
-  and iOS might look at [SceneKit](https://developer.apple.com/scenekit/).
-* Explore alternate algorithms for finding the nth generation, such
-  as [Hashlife](https://en.wikipedia.org/wiki/Hashlife)
